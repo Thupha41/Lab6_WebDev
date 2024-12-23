@@ -1,0 +1,15 @@
+services:
+  db-mysql:
+    image: mysql:5.7.40
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - MYSQL_DATABASE=${DB_MYSQL_NAME}
+      - MYSQL_ROOT_PASSWORD=${DB_MYSQL_PASSWORD}
+    ports:
+      - "${DB_MYSQL_PORT}:3306"
+#docker compose -f docker-compose.yml -p nodejs-sql-lab6 up -d
+#npx sequelize-cli model:generate --name Users --attributes username:string(50),password:string
+#npx sequelize-cli model:generate --name Tokens --attributes user_id:integer,token:string
+
