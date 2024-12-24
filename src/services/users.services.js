@@ -44,7 +44,6 @@ class UserService {
         `https://api.geoapify.com/v1/ipinfo?&apiKey=${envConfig.geoAPI}`
       );
       const data = await response.json();
-      console.log(data);
       if (!data) {
         return "Unknown location";
       }
@@ -65,6 +64,20 @@ class UserService {
     }
   };
 
+  static register = async (rawUserData) => {
+    //Step 1: hash user password
+    let hashPassword = await this.hashUserPassword(rawUserData.password);
+
+    //Step 2: create new user
+    await db.Users.create({
+      username: rawUserData.username,
+      password: hashPassword,
+      role: rawUserData.role,
+    });
+    return {
+      message: USERS_MESSAGES.REGISTER_SUCCESS,
+    };
+  };
   static login = async (rawUserData) => {
     let user = await this.checkUserExists(rawUserData.username);
     let checkPw = this.checkPassword(rawUserData.password, user.password);
@@ -73,11 +86,11 @@ class UserService {
     }
 
     const user_address = await this.getLocatedAddress();
-    console.log(">>> check user_address", user_address);
     const payload = {
       user_id: user.id,
       login_time: new Date().toISOString(),
       login_address: JSON.stringify(user_address),
+      role: user.role,
     };
 
     let token = await this.createToken(payload);

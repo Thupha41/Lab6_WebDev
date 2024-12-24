@@ -7,6 +7,7 @@ import {
 import {
   loginValidator,
   registerValidator,
+  roleValidator,
   tokenValidator,
 } from "../../middlewares/users.middlewares";
 import { wrapRequestHandler } from "../../utils/handlers";
@@ -56,5 +57,15 @@ userRouter.get("/verify", tokenValidator, (req, res) => {
     message: "Token is valid",
     decoded: req.decoded,
   });
+});
+
+/**
+ * Description: Protected route for admin role
+ * Path: /admin
+ * method: GET
+ * Header: {Authorization: Bearer <token>}
+ */
+userRouter.get("/admin", roleValidator, (req, res) => {
+  res.status(200).json({ message: "Welcome to the admin panel!" });
 });
 export default userRouter;

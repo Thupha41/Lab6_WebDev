@@ -23,4 +23,6 @@ export const USERS_MESSAGES = {
   LOGOUT_SUCCESS: "User logout successfully",
   USED_TOKEN_OR_NOT_EXIST: "Token is already used or not exist",
   TOKEN_IS_REQUIRED: "Token is required",
+  ACCESS_DENIED_ROLE_ADMIN:
+    "Access denied! You are not allowed to access role admin",
 };

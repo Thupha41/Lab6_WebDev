@@ -123,7 +123,6 @@ export const tokenValidator = validate(
                 });
               }
               req.decoded = decoded;
-              console.log(decoded);
             } catch (error) {
               if (error instanceof JsonWebTokenError) {
                 throw new ErrorWithStatus({
@@ -139,5 +138,50 @@ export const tokenValidator = validate(
       },
     },
     ["body" || "query"]
+  )
+);
+
+export const roleValidator = validate(
+  checkSchema(
+    {
+      Authorization: {
+        custom: {
+          options: async (value, { req }) => {
+            const token = (value || "").split(" ")[1];
+            console.log(token);
+            if (!token) {
+              throw new ErrorWithStatus({
+                message: USERS_MESSAGES.TOKEN_IS_REQUIRED,
+                status: HTTP_STATUS.UNAUTHORIZED,
+              });
+            }
+
+            try {
+              const decoded = await verifyToken({
+                token: token,
+                secretOrPublicKey: envConfig.jwtSecret,
+              });
+
+              if (decoded.role !== "admin") {
+                throw new ErrorWithStatus({
+                  message: USERS_MESSAGES.ACCESS_DENIED_ROLE_ADMIN,
+                  status: HTTP_STATUS.UNAUTHORIZED,
+                });
+              }
+              req.user = decoded;
+            } catch (error) {
+              if (error instanceof JsonWebTokenError) {
+                throw new ErrorWithStatus({
+                  message: capitalize(error.message),
+                  status: HTTP_STATUS.UNAUTHORIZED,
+                });
+              }
+              throw error;
+            }
+          },
+        },
+      },
+    },
+    ["headers"]
   )
 );
