@@ -123,6 +123,7 @@ export const tokenValidator = validate(
                 });
               }
               req.decoded = decoded;
+              console.log(decoded);
             } catch (error) {
               if (error instanceof JsonWebTokenError) {
                 throw new ErrorWithStatus({

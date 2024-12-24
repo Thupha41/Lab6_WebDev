@@ -24,7 +24,3 @@ export const logoutController = async (req, res) => {
   res.json(result);
   return;
 };
-
-export const verify = async (req, res) => {
-  const { token } = req.query;
-};

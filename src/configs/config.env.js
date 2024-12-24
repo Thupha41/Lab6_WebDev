@@ -33,4 +33,5 @@ export const envConfig = {
   githubSecret: process.env.GITHUB_CLIENT_SECRET,
   githubCallbackURL: process.env.GITHUB_CALL_BACK_URL,
   saltRounds: process.env.SALT_ROUNDS,
+  geoAPI: process.env.GEOAPIFY_KEY,
 };
