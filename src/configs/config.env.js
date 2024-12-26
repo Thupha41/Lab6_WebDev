@@ -27,6 +27,7 @@ export const envConfig = {
   dbMongoUsername: process.env.DB_MONGO_USERNAME,
   dbMongoName: process.env.DB_MONGO_NAME,
   dbMessagesCollection: process.env.DB_MESSAGES_COLLECTION,
+  dbNotificationsCollection: process.env.DB_NOTIFICATIONS_COLLECTION,
   jwtSecret: process.env.JWT_SECRET,
   jwtExpiresIn: process.env.JWT_EXPIRES_IN,
   githubId: process.env.GITHUB_CLIENT_ID,

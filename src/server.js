@@ -5,7 +5,6 @@ import configSession from "./configs/config.session";
 import { envConfig } from "./configs/config.env";
 import configLoginWithGithub from "./controllers/github.controllers";
 import webRoutes from "./routes/web";
-import mongoDatabaseService from "./databases/init.mongodb";
 const app = express();
 const port = envConfig.port;
 const hostname = envConfig.host;
@@ -28,9 +27,6 @@ configLoginWithGithub();
 //default error request handler
 app.use(defaultErrorHandler);
 
-//Connect to database mongo db
-mongoDatabaseService.connect();
-
 app.listen(port, hostname, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`App running on http://localhost:${port}`);
 });

@@ -5,6 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec ./node_modules/.bin/babel-node ./src/server.js",
+    "user-producer": "nodemon --exec ./node_modules/.bin/babel-node ./src/services/Producer/userProducer.services.js",
+    "notification-producer": "nodemon --exec ./node_modules/.bin/babel-node ./src/services/Producer/notificationProducer.services.js",
+    "consumer": "nodemon --exec ./node_modules/.bin/babel-node ./src/services/Consumer/consumer.services.js",
     "build-src": "babel src -d build --copy-files",
     "build": "node build/server.js",
     "migrate:up": "npx sequelize-cli db:migrate",

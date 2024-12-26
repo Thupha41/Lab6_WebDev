@@ -1,4 +1,4 @@
-import { envConfig } from "./config.env";
+import { envConfig } from "./config.env.js";
 export default {
   mongo_db: {
     development: {
